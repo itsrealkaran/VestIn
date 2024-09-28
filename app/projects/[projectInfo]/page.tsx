@@ -74,16 +74,16 @@ interface Project {
 //   projectPhase: "Development",
 // }
 
-export default function ProjectPage() {
+export default function ProjectPage({params}) {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="grid gap-6 md:grid-cols-3">
         <div className="md:col-span-2">
-          <h1 className="text-4xl font-bold mb-2">{project[1].name}</h1>
-          <p className="text-xl text-muted-foreground mb-4">{project[1].longDescription}</p>
+          <h1 className="text-4xl font-bold mb-2">{project[params.    ].name}</h1>
+          <p className="text-xl text-muted-foreground mb-4">{project[id].longDescription}</p>
           <div className="aspect-video mb-6">
             <iframe
-              src={project[1].videoUrl}
+              src={project[id].videoUrl}
               title="Project Video"
               className="w-full h-full rounded-lg"
               allowFullScreen
@@ -94,7 +94,7 @@ export default function ProjectPage() {
               <CardTitle>About the Project</CardTitle>
             </CardHeader>
             <CardContent>
-              <p>{project[1].longDescription}</p>
+              <p>{project[id].longDescription}</p>
             </CardContent>
           </Card>
         </div>
@@ -107,25 +107,25 @@ export default function ProjectPage() {
               <div className="space-y-2">
                 <div className="flex justify-between">
                   <span className="font-medium">Creator:</span>
-                  <span>{project[1].creator}</span>
+                  <span>{project[id].creator}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="font-medium">Theme:</span>
-                  <span>{project[1].theme}</span>
+                  <span>{project[id].theme}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="font-medium">Phase:</span>
-                  <Badge>{project[1].projectPhase}</Badge>
+                  <Badge>{project[id].projectPhase}</Badge>
                 </div>
                 <div className="flex justify-between items-center">
                   <span className="font-medium">Followers:</span>
-                  <span>{project[1].followers.toLocaleString()}</span>
+                  <span>{project[id].followers.toLocaleString()}</span>
                 </div>
                 <div className="flex justify-between items-center">
                   <span className="font-medium">Awards:</span>
                   <span className="flex items-center">
                     <Trophy className="w-4 h-4 mr-1" />
-                    {project[1].awards}
+                    {project[id].awards}
                   </span>
                 </div>
               </div>
@@ -137,7 +137,7 @@ export default function ProjectPage() {
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold mb-2">
-                {project[1].fundingGoal.amount.toLocaleString()} {project[1].fundingGoal.currency}
+                {project[id].fundingGoal.amount.toLocaleString()} {project[1].fundingGoal.currency}
               </div>
               <Progress value={33} className="mb-2" />
               <p className="text-sm text-muted-foreground">33% funded</p>
@@ -149,7 +149,7 @@ export default function ProjectPage() {
             </CardHeader>
             <CardContent>
               <div className="flex space-x-2">
-                {project[1].teamMembers.map((member, index) => (
+                {project[id].teamMembers.map((member, index) => (
                   <Avatar key={index}>
                     <AvatarImage src={member.avatar} alt={member.name} />
                     <AvatarFallback>{member.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
@@ -168,7 +168,7 @@ export default function ProjectPage() {
           </CardHeader>
           <CardContent>
             <ul className="space-y-2">
-              {project[1].milestones.map((milestone, index) => (
+              {project[id].milestones.map((milestone, index) => (
                 <li key={index} className="flex justify-between">
                   <span className="font-medium">{milestone.quarter}</span>
                   <span>{milestone.description}</span>
@@ -184,12 +184,12 @@ export default function ProjectPage() {
             </CardHeader>
             <CardContent className="flex justify-around">
               <Button asChild>
-                <Link href={project[1].documentation.businessPlan}>
+                <Link href={project[id].documentation.businessPlan}>
                   <FileText className="mr-2 h-4 w-4" /> Business Plan
                 </Link>
               </Button>
               <Button asChild>
-                <Link href={project[1].documentation.pitchDeck}>
+                <Link href={project[id].documentation.pitchDeck}>
                   <PresentationIcon className="mr-2 h-4 w-4" /> Pitch Deck
                 </Link>
               </Button>
@@ -201,19 +201,19 @@ export default function ProjectPage() {
             </CardHeader>
             <CardContent className="flex justify-around">
               <Button variant="outline" asChild>
-                <Link href={project[1].socialMedia.twitter}>
+                <Link href={project[id].socialMedia.twitter}>
                   <Twitter className="h-4 w-4" />
                   <span className="sr-only">Twitter</span>
                 </Link>
               </Button>
               <Button variant="outline" asChild>
-                <Link href={project[1].socialMedia.linkedin}>
+                <Link href={project[id].socialMedia.linkedin}>
                   <Linkedin className="h-4 w-4" />
                   <span className="sr-only">LinkedIn</span>
                 </Link>
               </Button>
               <Button variant="outline" asChild>
-                <Link href={project[1].socialMedia.instagram}>
+                <Link href={project[id].socialMedia.instagram}>
                   <Instagram className="h-4 w-4" />
                   <span className="sr-only">Instagram</span>
                 </Link>

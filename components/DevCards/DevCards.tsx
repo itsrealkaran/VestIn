@@ -6,7 +6,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Heart, Award } from "lucide-react"
 import Link from "next/link";
 import project from "@/data/projectCard"
-import projectDescription from "@/data/projectCardDescription"
+// import projectDescription from "@/data/projectCardDescription"
 
 interface Project {
   id: string
@@ -126,7 +126,7 @@ export default function BrowseProjects() {
       <Link href={`./projects/{projectInfo}`} className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {project.map((project) => (
           
-          <ProjectCard key={project.id} project={project} />
+          <ProjectCard key={project.id} id={project.id} />
         ))}
         </Link>
       </div>
