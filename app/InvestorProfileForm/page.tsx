@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { X, Upload } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -12,6 +12,16 @@ export default function Component() {
   const [professions, setProfessions] = useState<string[]>([])
   const [currentProfession, setCurrentProfession] = useState("")
   const [company, setCompany] = useState("")
+  const [isFormValid, setIsFormValid] = useState(false)
+
+  useEffect(() => {
+    setIsFormValid(
+      !!photo &&
+      name.trim() !== "" &&
+      professions.length > 0 &&
+      company.trim() !== ""
+    )
+  }, [photo, name, professions, company])
 
   const handlePhotoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
@@ -36,9 +46,12 @@ export default function Component() {
   }
 
   const handleSave = () => {
-    // Implement save functionality here
-    console.log({ photo, name, professions, company })
+    if (isFormValid) {
+      // Implement save functionality here
+      console.log({ photo, name, professions, company })
+    }
   }
+
 
   return (
     <div className="min-h-screen bg-white p-8">
@@ -114,7 +127,7 @@ export default function Component() {
             />
           </div>
 
-          <Button onClick={handleSave} className="w-full">
+          <Button onClick={handleSave} className="w-full" disabled={!isFormValid}>
             Save Information
           </Button>
         </div>

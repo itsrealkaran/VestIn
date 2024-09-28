@@ -3,7 +3,7 @@ import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Heart, Award, DivideSquare } from "lucide-react"
+import { Heart, Award } from "lucide-react"
 import Link from "next/link";
 import project from "@/data/projectCard"
 // import projectDescription from "@/data/projectCardDescription"
@@ -125,7 +125,7 @@ export default function BrowseProjects() {
       <div>
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {project.map((project) => (
-          <Link  href={`./projects/${project.id}`}>
+          <Link key ={project.id} href={`./projects/${project.id}`}>
           <ProjectCard key={project.id} project={project} />
           </Link>
         ))}

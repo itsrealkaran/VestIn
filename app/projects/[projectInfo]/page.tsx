@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Progress } from "@/components/ui/progress"
 import { Separator } from "@/components/ui/separator"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
@@ -9,33 +9,33 @@ import Link from "next/link"
 import project from '@/data/projectCardDescription'
 
 
-interface Project {
-  id: string;
-  name: string;
-  creator: string;
-  theme: string;
-  shortDescription: string;
-  longDescription: string;
-  teamMembers: { name: string; avatar: string }[];
-  followers: number;
-  awards: number;
-  videoUrl: string;
-  socialMedia: {
-    twitter: string;
-    linkedin: string;
-    instagram: string;
-  };
-  documentation: {
-    businessPlan: string;
-    pitchDeck: string;
-  };
-  fundingGoal: {
-    amount: number;
-    currency: string;
-  };
-  milestones: { quarter: string; description: string }[];
-  projectPhase: string;
-}// Mock data based on the Project interface
+// interface Project {
+//   id: string;
+//   name: string;
+//   creator: string;
+//   theme: string;
+//   shortDescription: string;
+//   longDescription: string;
+//   teamMembers: { name: string; avatar: string }[];
+//   followers: number;
+//   awards: number;
+//   videoUrl: string;
+//   socialMedia: {
+//     twitter: string;
+//     linkedin: string;
+//     instagram: string;
+//   };
+//   documentation: {
+//     businessPlan: string;
+//     pitchDeck: string;
+//   };
+//   fundingGoal: {
+//     amount: number;
+//     currency: string;
+//   };
+//   milestones: { quarter: string; description: string }[];
+//   projectPhase: string;
+// }// Mock data based on the Project interface
 
 // const project: Project = {
 //   id: "1",

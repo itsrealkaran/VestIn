@@ -8,7 +8,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 
 // Note: jsPDF and html2canvas are typically client-side libraries
 // They should be imported dynamically or used within useEffect
-import dynamic from 'next/dynamic';
+// import dynamic from 'next/dynamic';
 
 const BusinessPlanComponent: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);

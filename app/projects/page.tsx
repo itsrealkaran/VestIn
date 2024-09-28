@@ -1,6 +1,6 @@
 import DevCards from '@/components/DevCards/DevCards'
 import React from 'react'
-import ProjectCard from "@/components/projects/ProjectCard"
+// import ProjectCard from "@/components/projects/ProjectCard"
 
 function page() {
   return (
