@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Youtube, Twitter, Linkedin, Instagram, FileIcon, Trash2Icon, Loader } from "lucide-react"; // Import Loader
+import { jsPDF } from 'jspdf'; // Import jsPDF
 import {
   Dialog,
   DialogContent,
@@ -35,18 +36,50 @@ export default function CombinedComponent() {
     setIsLoading(true); // Start loading
     console.log('Generating with prompt:', prompt);
     
-    // Simulate a 3-second loading time
+    // Simulate PDF generation
     setTimeout(() => {
-      // Replace this with actual PDF generation logic
-      const blob = new Blob([prompt], { type: 'application/pdf' });
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = 'business_plan.pdf';
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      
+      // PDF creation logic
+      const doc = new jsPDF();
+
+      // Add static content (Business Plan Sections)
+      doc.setFontSize(16);
+      doc.text("Business Plan", 10, 10);
+
+      doc.setFontSize(14);
+      doc.text("Executive Summary", 10, 20);
+      doc.setFontSize(12);
+      doc.text("This is a brief description of the business and its objectives.", 10, 30);
+
+      doc.setFontSize(14);
+      doc.text("Business Description", 10, 40);
+      doc.setFontSize(12);
+      doc.text("Details about the business, including its mission and vision.", 10, 50);
+
+      doc.setFontSize(14);
+      doc.text("Market Analysis", 10, 60);
+      doc.setFontSize(12);
+      doc.text("An analysis of the industry, market size, and growth potential.", 10, 70);
+
+      doc.setFontSize(14);
+      doc.text("Marketing Strategy", 10, 80);
+      doc.setFontSize(12);
+      doc.text("How the business intends to reach its target market and drive sales.", 10, 90);
+
+      doc.setFontSize(14);
+      doc.text("Financial Projections", 10, 100);
+      doc.setFontSize(12);
+      doc.text("Projected revenue, expenses, and profitability over the next few years.", 10, 110);
+
+      // Add user prompt content
+      doc.setFontSize(14);
+      doc.text("AI Generated Content", 10, 130);
+      doc.setFontSize(12);
+      doc.text(prompt, 10, 140);
+
+      // Save the PDF
+      doc.save('business_plan.pdf');
+
+      // Reset states
       setIsModalOpen(false);
       setPrompt('');
       setIsLoading(false); // End loading
