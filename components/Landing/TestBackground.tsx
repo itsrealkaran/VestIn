@@ -6,7 +6,7 @@ import { AnimatedModalDemo } from "./Modal";
 
 export function WavyBackgroundDemo() {
   return (
-    <WavyBackground className="  flex flex-col gap-1 mx-auto pb-40">
+    <WavyBackground className=" max-h-[50vh]  flex flex-col gap-1 mx-auto pb-40">
       <p className="text-2xl md:text-4xl lg:text-7xl text-slate-800 font-bold mt-28 inter-var text-center">
         VestIN
       </p>
