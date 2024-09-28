@@ -18,7 +18,7 @@ export default function ProjectDetails() {
   const [milestones, setMilestones] = useState<Milestone[]>([])
   const [newMilestone, setNewMilestone] = useState<Milestone>({ quarter: '', description: '' })
   const [isSaved, setIsSaved] = useState(false)
-  const minCharacters = 20 // Minimum character count for milestone description
+  const minCharacters = 20 
 
   // Handle adding milestones
   const addMilestone = () => {

@@ -5,7 +5,6 @@ function Page() {
   return (
     <div>
         <MainPage/>
-      
     </div>
   )
 }
