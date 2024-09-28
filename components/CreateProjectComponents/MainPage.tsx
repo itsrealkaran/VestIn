@@ -11,7 +11,6 @@ function MainPage() {
         <ProjectDetailsForm/>
         <SocialMedia/>
         <FundingGoal/>
-      
     </div>
   )
 }
