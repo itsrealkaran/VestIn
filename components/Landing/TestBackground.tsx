@@ -13,7 +13,6 @@ export function WavyBackgroundDemo() {
       <p className="text-base md:text-base font-medium mb-3  text-slate-800  inter-var text-center">
         A Free Vesting Platform In Blockchain
       </p>
-      {/* <p>something</p> */}
       <AnimatedModalDemo/>
     </WavyBackground>
   );
