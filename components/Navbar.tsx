@@ -11,6 +11,12 @@ export default function Navbar() {
     try {
       const accounts = await sdk?.connect();
       setAccount(accounts?.[0]);
+      console.log(account)
+      if (connected) {
+        console.log("cuccessful")
+      } else {
+        
+      }
     } catch (err) {
       console.warn("failed to connect..", err);
     }
