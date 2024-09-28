@@ -1,7 +1,12 @@
+import DevCards from '@/components/DevCards/DevCards'
 import React from 'react'
 
-export default function page() {
+function page() {
   return (
-    <div>page</div>
+    <div>
+      <DevCards/>
+    </div>
   )
 }
+
+export default page
