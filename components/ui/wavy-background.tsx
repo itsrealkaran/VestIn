@@ -10,9 +10,9 @@ export const WavyBackground = ({
   colors,
   waveWidth,
   backgroundFill,
-  blur = 7,
+  blur = 10,
   speed = "fast",
-  waveOpacity = 0.3,
+  waveOpacity = 0.7,
   ...props
 }: {
   children?: React.ReactNode;
@@ -27,10 +27,10 @@ export const WavyBackground = ({
   [key: string]: unknown; // Changed from 'any' to 'unknown'
 }) => {
   const noise = createNoise3D();
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  let w: number, h: number, nt: number, i: number, x: number;
+  let w: number, h: number, nt: number;
   let ctx: CanvasRenderingContext2D | null;
-  let animationId: number;
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const animationIdRef = useRef<number | null>(null); // Using useRef to store animationId
 
   const getSpeed = () => {
     switch (speed) {
@@ -45,26 +45,23 @@ export const WavyBackground = ({
 
   const init = useCallback(() => {
     const canvas = canvasRef.current;
-    if (canvas) {
-      ctx = canvas.getContext("2d");
-      if (ctx) {
-        const resizeCanvas = () => {
-          if (ctx) {
-            w = ctx.canvas.width = window.innerWidth;
-            h = ctx.canvas.height = window.innerHeight;
-            ctx.filter = `blur(${blur}px)`;
-          }
-        };
+    if (!canvas) return;
 
-        resizeCanvas(); // Set initial canvas size
+    ctx = canvas.getContext("2d");
+    if (!ctx) return;
 
-        // Set up the window resize listener
-        window.onresize = resizeCanvas;
+    w = ctx.canvas.width = window.innerWidth;
+    h = ctx.canvas.height = window.innerHeight;
+    ctx.filter = `blur(${blur}px)`;
+    nt = 0;
 
-        nt = 0;
-        render();
-      }
-    }
+    window.onresize = function () {
+      w = ctx!.canvas.width = window.innerWidth;
+      h = ctx!.canvas.height = window.innerHeight;
+      ctx!.filter = `blur(${blur}px)`;
+    };
+
+    render();
   }, [blur]);
 
   const waveColors = colors ?? [
@@ -76,42 +73,44 @@ export const WavyBackground = ({
   ];
 
   const drawWave = (n: number) => {
+    if (!ctx) return;
+
     nt += getSpeed();
-    for (i = 0; i < n; i++) {
-      if (ctx) {
-        ctx.beginPath();
-        ctx.lineWidth = waveWidth || 50;
-        ctx.strokeStyle = waveColors[i % waveColors.length];
-        for (x = 0; x < w; x += 5) {
-          const y = noise(x / 800, 0.3 * i, nt) * 100;
-          ctx.lineTo(x, y + h * 0.5);
-        }
-        ctx.stroke();
-        ctx.closePath();
+    for (let i = 0; i < n; i++) {
+      ctx.beginPath();
+      ctx.lineWidth = waveWidth || 50;
+      ctx.strokeStyle = waveColors[i % waveColors.length];
+      for (let x = 0; x < w; x += 5) {
+        const y = noise(x / 800, 0.3 * i, nt) * 100;
+        ctx.lineTo(x, y + h * 0.5); // Adjust for height, currently at 50% of the container
       }
+      ctx.stroke();
+      ctx.closePath();
     }
   };
 
   const render = () => {
-    if (ctx) {
-      ctx.fillStyle = backgroundFill || "white";
-      ctx.globalAlpha = waveOpacity || 0.3;
-      ctx.fillRect(0, 0, w, h);
-      drawWave(5);
-      animationId = requestAnimationFrame(render);
-    }
+    if (!ctx) return;
+
+    ctx.fillStyle = backgroundFill || "white";
+    ctx.globalAlpha = waveOpacity || 0.6;
+    ctx.fillRect(0, 0, w, h);
+    drawWave(5);
+    animationIdRef.current = requestAnimationFrame(render); // Store the animation ID in useRef
   };
 
   useEffect(() => {
     init();
     return () => {
-      cancelAnimationFrame(animationId);
-      window.onresize = null; // Clean up the resize event listener
+      if (animationIdRef.current) {
+        cancelAnimationFrame(animationIdRef.current); // Cleanup the animation on component unmount
+      }
     };
   }, [init]);
 
   const [isSafari, setIsSafari] = useState(false);
   useEffect(() => {
+    // I'm sorry but I have got to support it on Safari.
     setIsSafari(
       typeof window !== "undefined" &&
         navigator.userAgent.includes("Safari") &&

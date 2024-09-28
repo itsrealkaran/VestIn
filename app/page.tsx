@@ -1,5 +1,6 @@
 import React from "react";
-import { WavyBackgroundDemo } from "@/components/TestBackground";
+// import { Button } from "@/components/ui/button";
+import { WavyBackgroundDemo } from "@/components/Landing/TestBackground";
 
 export default function page() {
   return (
