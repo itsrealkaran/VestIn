@@ -82,74 +82,7 @@ const projects: Project[] = [
       ],
       awards: 2,
     },
-    {
-      id: "6",
-      name: "AeroRoute",
-      creator: "AeroSoft",
-      category: "TRANSPORTATION",
-      followers: 15,
-      description: "AeroRoute optimizes air traffic routes using AI to reduce fuel consumption and improve efficiency in air transport logistics.",
-      teamMembers: [
-        { name: "AS", avatar: "/placeholder.svg?height=32&width=32" },
-        { name: "TR", avatar: "/placeholder.svg?height=32&width=32" },
-      ],
-      awards: 1,
-    },
-    {
-      id: "7",
-      name: "CryptoVote",
-      creator: "BlockTech",
-      category: "GOVERNANCE",
-      followers: 40,
-      description: "CryptoVote is a decentralized voting platform that allows organizations to conduct secure, transparent elections using blockchain.",
-      teamMembers: [
-        { name: "BT", avatar: "/placeholder.svg?height=32&width=32" },
-        { name: "HF", avatar: "/placeholder.svg?height=32&width=32" },
-        { name: "LM", avatar: "/placeholder.svg?height=32&width=32" },
-      ],
-      awards: 5,
-    },
-    {
-      id: "8",
-      name: "EduChain",
-      creator: "LearnVerse",
-      category: "EDUCATION",
-      followers: 50,
-      description: "EduChain is a blockchain-based platform that ensures credential verification and secure access to educational records.",
-      teamMembers: [
-        { name: "LV", avatar: "/placeholder.svg?height=32&width=32" },
-        { name: "JD", avatar: "/placeholder.svg?height=32&width=32" },
-        { name: "MC", avatar: "/placeholder.svg?height=32&width=32" },
-      ],
-      awards: 4,
-    },
-    {
-      id: "9",
-      name: "AquaFarm",
-      creator: "BioSolutions",
-      category: "AGRICULTURE",
-      followers: 18,
-      description: "AquaFarm helps farmers optimize aquaculture processes using AI-driven tools for better yield and sustainability.",
-      teamMembers: [
-        { name: "BS", avatar: "/placeholder.svg?height=32&width=32" },
-        { name: "RG", avatar: "/placeholder.svg?height=32&width=32" },
-      ],
-      awards: 2,
-    },
-    {
-      id: "10",
-      name: "AutoMinds",
-      creator: "TechGear",
-      category: "AUTOMOTIVE",
-      followers: 28,
-      description: "AutoMinds revolutionizes vehicle diagnostics and maintenance through IoT, enabling real-time data for predictive maintenance.",
-      teamMembers: [
-        { name: "TG", avatar: "/placeholder.svg?height=32&width=32" },
-        { name: "DW", avatar: "/placeholder.svg?height=32&width=32" },
-        { name: "MS", avatar: "/placeholder.svg?height=32&width=32" },
-      ],
-      awards: 3,
-    },
+   
    
     
     // Add more projects here...
