@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { WavyBackground } from "../ui/wavy-background";
-import { Button } from "../ui/button";
+// import { Button } from "../ui/button";
 import { AnimatedModalDemo } from "./Modal";
 
 export function WavyBackgroundDemo() {

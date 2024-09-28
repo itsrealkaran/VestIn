@@ -1,4 +1,4 @@
-// @ts-nocheck
+
 "use client";
 
 import { MetaMaskProvider } from "@metamask/sdk-react";
@@ -8,5 +8,7 @@ export const MetaMaskProvide = ({
 }: {
   children: React.ReactNode;
 }) => {
-  return <MetaMaskProvider value>{children}</MetaMaskProvider>;
+  return <MetaMaskProvider sdkOptions={{dappMetadata: {
+    name: "Example React Dapp"
+  }}}>{children}</MetaMaskProvider>;
 };  

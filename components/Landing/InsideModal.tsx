@@ -1,13 +1,13 @@
 import { useState } from 'react'
 import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
+import { CardContent } from "@/components/ui/card"
 import { UserIcon, LightbulbIcon } from "lucide-react"
 import { useSDK } from "@metamask/sdk-react";
 
 export default function Component() {
   const [selectedType, setSelectedType] = useState<string | null>(null)
   const [account, setAccount] = useState<string>();
-  const { sdk, connected, connecting, provider, chainId } = useSDK();
+  const { sdk, connected, chainId } = useSDK();
 
   const connect = async () => {
     try {
@@ -27,10 +27,10 @@ export default function Component() {
     setSelectedType(type)
   }
 
-  const handleConnectWallet = () => {
-    console.log(`Connecting wallet for ${selectedType}`)
-    // Implement wallet connection logic here
-  }
+//   const handleConnectWallet = () => {
+//     console.log(`Connecting wallet for ${selectedType}`)
+//     // Implement wallet connection logic here
+//   }
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-background p-4">
