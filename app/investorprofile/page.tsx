@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useProfile } from "@/context/ProfileContext";
 import Image from "next/image";
+// import Link from "next/link";
 
 export default function InvestorComponent() {
   const { setInvestorProfile } = useProfile();
@@ -49,7 +50,7 @@ export default function InvestorComponent() {
     console.log(investorProfile);
     // Simulate a delay for the loader
     await new Promise((resolve) => setTimeout(resolve, 1000));
-    router.push('/projects');
+    router.push('/investordashboard');
   };
 
   return (
@@ -92,13 +93,13 @@ export default function InvestorComponent() {
           </div>
 
           <div>
-            <Label htmlFor="profession">Profession</Label>
+            <Label htmlFor="profession">Interested Projects</Label>
             <Input
               id="profession"
               value={currentProfession}
               onChange={(e) => setCurrentProfession(e.target.value)}
               onKeyDown={handleAddProfession}
-              placeholder="Enter a profession and press Enter"
+              placeholder="Enter interested Projects and press Enter"
               required
             />
             <div className="mt-2 flex flex-wrap gap-2">

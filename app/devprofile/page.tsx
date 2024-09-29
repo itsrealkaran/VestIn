@@ -10,6 +10,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useProfile } from "@/context/ProfileContext";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function DeveloperComponent() {
   const { setDeveloperProfile } = useProfile();
@@ -56,7 +57,7 @@ export default function DeveloperComponent() {
     console.log(developerProfile);
     // Simulate a delay for the loader
     await new Promise((resolve) => setTimeout(resolve, 1000));
-    router.push('/projects');
+    router.push('/devdashboard');
   };
 
   return (
@@ -185,7 +186,9 @@ export default function DeveloperComponent() {
           />
         </div>
         <Button onClick={handleSave} className="w-full" disabled={isLoading}>
+        <Link href={"/devdashboard"}>
           {isLoading ? "Saving..." : "Save Profile"}
+          </Link>
         </Button>
       </CardContent>
     </div>
