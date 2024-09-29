@@ -1,24 +1,38 @@
+"use client"
 import { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { CardContent } from "@/components/ui/card";
 import { UserIcon, LightbulbIcon } from "lucide-react";
 import { useSDK } from "@metamask/sdk-react";
+import { useRouter } from 'next/navigation'; // For navigation
 
-interface InsideModalProps {
-  onSelectUserType: (type: string) => void;
-}
+// interface InsideModalProps {
+//   onSelectUserType: (type: string) => void;
+// }
 
-export default function InsideModal({ onSelectUserType }: InsideModalProps) {
+export default function InsideModal() {
   const [selectedType, setSelectedType] = useState<string | null>(null);
   const [account, setAccount] = useState<string>();
   const [loading, setLoading] = useState(false);
   const { sdk, connected, chainId } = useSDK();
+  const router = useRouter(); // Initialize the useRouter hook
 
   const connect = async () => {
     setLoading(true);
     try {
       const accounts = await sdk?.connect();
-      setAccount(accounts?.[0]);
+      if (accounts?.[0]) {
+        setAccount(accounts?.[0]);
+        
+        // Navigate only if the connection is successful
+        if (selectedType === 'Investor') {
+          router.push('/investorprofile');
+        } else if (selectedType === 'Developer') {
+          router.push('/devprofile');
+        }
+      } else {
+        console.warn("No accounts found");
+      }
     } catch (err) {
       console.warn("Failed to connect:", err);
     } finally {
@@ -32,8 +46,7 @@ export default function InsideModal({ onSelectUserType }: InsideModalProps) {
   ];
 
   const handleSelection = (type: string) => {
-    setSelectedType(type);
-    onSelectUserType(type);
+    setSelectedType(type); // Set the selected user type
   };
 
   return (
@@ -64,7 +77,7 @@ export default function InsideModal({ onSelectUserType }: InsideModalProps) {
           </div>
           <Button 
             className="w-full" 
-            disabled={loading}
+            disabled={loading || !selectedType} // Disable if no type selected
             onClick={connect}
           >
             {loading ? "Connecting..." : "Connect Wallet"}

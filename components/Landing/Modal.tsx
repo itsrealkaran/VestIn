@@ -2,18 +2,18 @@
 import React from "react";
 import { Modal, ModalBody, ModalTrigger } from "../ui/animated-modal";
 import InsideModal from "./InsideModal";
-import { useRouter } from 'next/navigation';
+// import { useRouter } from 'next/navigation';
 
 export function AnimatedModalDemo() {
-  const router = useRouter();
+  // const router = useRouter();
 
-  const handleUserTypeSelection = (type: string) => {
-    if (type === 'Developer') {
-      router.push('/devprofile');
-    } else if (type === 'Investor') {
-      router.push('/investorprofile');
-    }
-  };
+  // const handleUserTypeSelection = (type: string) => {
+  //   if (type === 'Developer') {
+  //     router.push('/devprofile');
+  //   } else if (type === 'Investor') {
+  //     router.push('/investorprofile');
+  //   }
+  // };
 
   return (
     <div className="flex items-center justify-center">
@@ -25,7 +25,8 @@ export function AnimatedModalDemo() {
           </div>
         </ModalTrigger>
         <ModalBody className="h-[40vh] w-[40%] flex justify-center">
-          <InsideModal onSelectUserType={handleUserTypeSelection} />
+          <InsideModal  />
+          {/* <InsideModal onSelectUserType={handleUserTypeSelection} /> */}
         </ModalBody>
       </Modal>
     </div>

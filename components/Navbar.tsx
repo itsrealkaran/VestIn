@@ -30,7 +30,7 @@ export default function Navbar() {
         </Link>
 
       <div className="flex items-center gap-5">
-        <Link href={"./projects"} className="text-lg font-medium underline">
+        <Link href={"/projects"} className="text-lg font-medium underline">
           Projects
         </Link>
         <Button onClick={connect}>

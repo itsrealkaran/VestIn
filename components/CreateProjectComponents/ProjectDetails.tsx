@@ -95,7 +95,7 @@ export default function ProjectForm() {
 
     const provider = new ethers.BrowserProvider(window.ethereum);
     const signer = await provider.getSigner();
-    const vestingContract = new ethers.Contract(VESTING_CONTRACT_ADDRESS, Vesting.abi, signer);
+    const vestingContract = new ethers.Contract(VESTING_CONTRACT_ADDRESS, Vesting, signer);
 
     try {
       const tokenId = 1; // Replace this with the actual token ID of the project NFT
