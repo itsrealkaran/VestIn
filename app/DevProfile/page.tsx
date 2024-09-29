@@ -1,46 +1,62 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import {  CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
-import { X } from "lucide-react"
+import { useState } from "react";
+import { useRouter } from 'next/navigation';
+import { X } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { useProfile } from "@/context/ProfileContext";
 
-export default function Component() {
-  const [name, setName] = useState("")
-  const [bio, setBio] = useState("")
-  const [skills, setSkills] = useState<string[]>([])
-  const [currentSkill, setCurrentSkill] = useState("")
-  const [discord, setDiscord] = useState("")
-  const [linkedin, setLinkedin] = useState("")
-  const [twitter, setTwitter] = useState("")
-  const [github, setGithub] = useState("")
-  const [image, setImage] = useState<string | null>(null)
+export default function DeveloperComponent() {
+  const { setDeveloperProfile } = useProfile();
+  const router = useRouter();
+  const [name, setName] = useState("");
+  const [bio, setBio] = useState("");
+  const [skills, setSkills] = useState<string[]>([]);
+  const [currentSkill, setCurrentSkill] = useState("");
+  const [discord, setDiscord] = useState("");
+  const [linkedin, setLinkedin] = useState("");
+  const [twitter, setTwitter] = useState("");
+  const [github, setGithub] = useState("");
+  const [image, setImage] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSkillInput = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' && currentSkill.trim() !== '') {
-      e.preventDefault()
-      setSkills([...skills, currentSkill.trim()])
-      setCurrentSkill('')
+      e.preventDefault();
+      setSkills([...skills, currentSkill.trim()]);
+      setCurrentSkill('');
     }
-  }
+  };
 
   const removeSkill = (skillToRemove: string) => {
-    setSkills(skills.filter(skill => skill !== skillToRemove))
-  }
+    setSkills(skills.filter(skill => skill !== skillToRemove));
+  };
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]
+    const file = e.target.files?.[0];
     if (file) {
-      const reader = new FileReader()
+      const reader = new FileReader();
       reader.onloadend = () => {
-        setImage(reader.result as string)
-      }
-      reader.readAsDataURL(file)
+        setImage(reader.result as string);
+      };
+      reader.readAsDataURL(file);
     }
-  }
+  };
+
+  const handleSave = async () => {
+    setIsLoading(true);
+    const developerProfile = { name, bio, skills, discord, linkedin, twitter, github, image };
+    localStorage.setItem('developerProfile', JSON.stringify(developerProfile));
+    setDeveloperProfile(developerProfile);
+    console.log(developerProfile);
+    // Simulate a delay for the loader
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    router.push('/projects');
+  };
 
   return (
     <div className="w-full max-w-2xl mx-auto mt-6 mb-5">
@@ -75,6 +91,7 @@ export default function Component() {
               accept="image/*"
               onChange={handleImageUpload}
               className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+              required
             />
           </div>
         </div>
@@ -85,6 +102,7 @@ export default function Component() {
             placeholder="Enter your name"
             value={name}
             onChange={(e) => setName(e.target.value)}
+            required
           />
         </div>
         <div className="space-y-2">
@@ -94,6 +112,7 @@ export default function Component() {
             placeholder="Write a short bio about yourself"
             value={bio}
             onChange={(e) => setBio(e.target.value)}
+            required
           />
         </div>
         <div className="space-y-2">
@@ -121,6 +140,7 @@ export default function Component() {
             value={currentSkill}
             onChange={(e) => setCurrentSkill(e.target.value)}
             onKeyDown={handleSkillInput}
+            required
           />
         </div>
         <div className="space-y-2">
@@ -130,6 +150,7 @@ export default function Component() {
             placeholder="Your Discord username"
             value={discord}
             onChange={(e) => setDiscord(e.target.value)}
+            required
           />
         </div>
         <div className="space-y-2">
@@ -139,6 +160,7 @@ export default function Component() {
             placeholder="Your LinkedIn profile URL"
             value={linkedin}
             onChange={(e) => setLinkedin(e.target.value)}
+            required
           />
         </div>
         <div className="space-y-2">
@@ -148,6 +170,7 @@ export default function Component() {
             placeholder="Your Twitter handle"
             value={twitter}
             onChange={(e) => setTwitter(e.target.value)}
+            required
           />
         </div>
         <div className="space-y-2">
@@ -157,10 +180,13 @@ export default function Component() {
             placeholder="Your GitHub username"
             value={github}
             onChange={(e) => setGithub(e.target.value)}
+            required
           />
         </div>
-        <Button className="w-full">Save Profile</Button>
+        <Button onClick={handleSave} className="w-full" disabled={isLoading}>
+          {isLoading ? "Saving..." : "Save Profile"}
+        </Button>
       </CardContent>
     </div>
-  )
+  );
 }

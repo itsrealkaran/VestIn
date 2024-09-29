@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { MetaMaskProvide } from "@/components/MetaMaskProvider";
 import Navbar from "@/components/Navbar";
+import { ProfileProvider } from "@/context/ProfileContext";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -31,8 +32,10 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased relative`}
       >
         <MetaMaskProvide>
-        <Navbar/>
-        {children}
+          <ProfileProvider>
+            <Navbar />
+            {children}
+          </ProfileProvider>
         </MetaMaskProvide>
       </body>
     </html>
