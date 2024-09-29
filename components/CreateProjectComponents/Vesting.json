@@ -1,0 +1,150 @@
+[
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_customToken",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_projectNFT",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "inputs": [],
+      "name": "customToken",
+      "outputs": [
+        {
+          "internalType": "contract CustomToken",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "milestones",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "q1Amount",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "q2Amount",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "q3Amount",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "q4Amount",
+          "type": "uint256"
+        },
+        {
+          "internalType": "bool",
+          "name": "q1Complete",
+          "type": "bool"
+        },
+        {
+          "internalType": "bool",
+          "name": "q2Complete",
+          "type": "bool"
+        },
+        {
+          "internalType": "bool",
+          "name": "q3Complete",
+          "type": "bool"
+        },
+        {
+          "internalType": "bool",
+          "name": "q4Complete",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "projectNFT",
+      "outputs": [
+        {
+          "internalType": "contract ProjectNFT",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "tokenId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint8",
+          "name": "milestone",
+          "type": "uint8"
+        }
+      ],
+      "name": "releaseFunds",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "tokenId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "q1Amount",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "q2Amount",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "q3Amount",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "q4Amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "setMilestoneFunds",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ]
+  

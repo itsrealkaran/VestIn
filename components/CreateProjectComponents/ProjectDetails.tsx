@@ -11,12 +11,15 @@ import { PlusCircle } from "lucide-react";
 import Image from 'next/image';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import ProjectNFT from './ProjectNFT.json'; // Adjust the path accordingly
+import Vesting from './Vesting.json'; // Import the ABI of your Vesting contract
 
 const CONTRACT_ADDRESS = '0x28785bb65e5f9FE617b5765f1d0f81fa223Cc8Bd'; // Replace with your contract address
+const VESTING_CONTRACT_ADDRESS = '0xYourVestingContractAddress'; // Replace with your Vesting contract address
 
 type Milestone = {
   quarter: string;
   description: string;
+  amount: number; // Added to hold the amount for each milestone
 }
 
 export default function ProjectForm() {
@@ -27,7 +30,7 @@ export default function ProjectForm() {
   const [detailsDescription, setDetailsDescription] = useState('');
   const [goalAmount, setGoalAmount] = useState<string>('0');
   const [milestones, setMilestones] = useState<Milestone[]>([]);
-  const [newMilestone, setNewMilestone] = useState<Milestone>({ quarter: '', description: '' });
+  const [newMilestone, setNewMilestone] = useState<Milestone>({ quarter: '', description: '', amount: 0 });
   const [isSaved, setIsSaved] = useState(false);
   
   const minDescriptionChars = 200;
@@ -77,16 +80,40 @@ export default function ProjectForm() {
   const addMilestone = () => {
     if (newMilestone.quarter && newMilestone.description.length >= minMilestoneChars) {
       setMilestones([...milestones, newMilestone]);
-      setNewMilestone({ quarter: '', description: '' });
+      setNewMilestone({ quarter: '', description: '', amount: 0 });
       setIsSaved(false);
     } else {
       console.error(`Description must be at least ${minMilestoneChars} characters long.`);
     }
   };
 
-  const saveMilestones = () => {
-    console.log('Saving milestones:', milestones);
-    setIsSaved(true);
+  const saveMilestones = async () => {
+    if (!window.ethereum) {
+      alert('Please install MetaMask!');
+      return;
+    }
+
+    const provider = new ethers.BrowserProvider(window.ethereum);
+    const signer = await provider.getSigner();
+    const vestingContract = new ethers.Contract(VESTING_CONTRACT_ADDRESS, Vesting.abi, signer);
+
+    try {
+      const tokenId = 1; // Replace this with the actual token ID of the project NFT
+
+      const q1Amount = milestones.find(ms => ms.quarter === 'Q1')?.amount || 0;
+      const q2Amount = milestones.find(ms => ms.quarter === 'Q2')?.amount || 0;
+      const q3Amount = milestones.find(ms => ms.quarter === 'Q3')?.amount || 0;
+      const q4Amount = milestones.find(ms => ms.quarter === 'Q4')?.amount || 0;
+
+      await vestingContract.setMilestoneFunds(tokenId, q1Amount, q2Amount, q3Amount, q4Amount);
+      
+      console.log('Milestones saved to Vesting contract');
+      alert('Milestones saved successfully!');
+      setIsSaved(true);
+    } catch (error) {
+      console.error('Error saving milestones:', error);
+      alert('Saving milestones failed. Please try again.');
+    }
   };
 
   const groupedMilestones = milestones.reduce((acc, milestone) => {
@@ -230,6 +257,17 @@ export default function ProjectForm() {
                 rows={2}
               />
             </div>
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="milestone-amount" className="text-right">Amount</Label>
+              <Input
+                type="number"
+                id="milestone-amount"
+                value={newMilestone.amount}
+                onChange={(e) => setNewMilestone({ ...newMilestone, amount: parseFloat(e.target.value) })}
+                className="col-span-3"
+                min="0"
+              />
+            </div>
             <Button onClick={addMilestone}>Add Milestone</Button>
           </div>
         </CardContent>
@@ -246,7 +284,7 @@ export default function ProjectForm() {
               <h3 className="text-lg font-semibold mb-2">{quarter}</h3>
               <ul className="list-disc pl-5">
                 {quarterMilestones.map((milestone, index) => (
-                  <li key={index}>{milestone.description}</li>
+                  <li key={index}>{milestone.description} (Amount: {milestone.amount})</li>
                 ))}
               </ul>
             </div>
