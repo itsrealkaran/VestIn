@@ -1,3 +1,6 @@
+"use client"
+
+import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Progress } from "@/components/ui/progress"
@@ -6,75 +9,23 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
 import { Twitter, Linkedin, Instagram, FileText, PresentationIcon, Trophy } from "lucide-react"
 import Link from "next/link"
+import { useToast } from "@/hooks/use-toast"
+import { ToastAction } from "@/components/ui/toast"
 import project from '@/data/projectCardDescription'
 
+export default function ProjectPage({ params }: any) {
+  const { toast } = useToast()
+  const [fundingPercentage, setFundingPercentage] = useState(33)
 
-// interface Project {
-//   id: string;
-//   name: string;
-//   creator: string;
-//   theme: string;
-//   shortDescription: string;
-//   longDescription: string;
-//   teamMembers: { name: string; avatar: string }[];
-//   followers: number;
-//   awards: number;
-//   videoUrl: string;
-//   socialMedia: {
-//     twitter: string;
-//     linkedin: string;
-//     instagram: string;
-//   };
-//   documentation: {
-//     businessPlan: string;
-//     pitchDeck: string;
-//   };
-//   fundingGoal: {
-//     amount: number;
-//     currency: string;
-//   };
-//   milestones: { quarter: string; description: string }[];
-//   projectPhase: string;
-// }// Mock data based on the Project interface
+  const handleFund = () => {
+    setFundingPercentage(prevPercentage => Math.min(prevPercentage + 10, 100))
+    toast({
+      title: "Funding Successful!",
+      description: "Thank you for supporting this project.",
+      action: <ToastAction altText="View project">View project</ToastAction>,
+    })
+  }
 
-// const project: Project = {
-//   id: "1",
-//   name: "EcoTech Solutions",
-//   creator: "Jane Doe",
-//   theme: "Sustainability",
-//   shortDescription: "Innovative eco-friendly technology solutions",
-//   longDescription: "EcoTech Solutions is dedicated to developing cutting-edge technologies that address environmental challenges. Our team of experts is committed to creating sustainable solutions for a greener future.",
-//   teamMembers: [
-//     { name: "Jane Doe", avatar: "/placeholder.svg?height=32&width=32" },
-//     { name: "John Smith", avatar: "/placeholder.svg?height=32&width=32" },
-//     { name: "Alice Johnson", avatar: "/placeholder.svg?height=32&width=32" },
-//   ],
-//   followers: 1500,
-//   awards: 3,
-//   videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-//   socialMedia: {
-//     twitter: "https://twitter.com/ecotech",
-//     linkedin: "https://linkedin.com/company/ecotech",
-//     instagram: "https://instagram.com/ecotech",
-//   },
-//   documentation: {
-//     businessPlan: "/business-plan.pdf",
-//     pitchDeck: "/pitch-deck.pdf",
-//   },
-//   fundingGoal: {
-//     amount: 500000,
-//     currency: "USD",
-//   },
-//   milestones: [
-//     { quarter: "Q1 2024", description: "Product prototype completion" },
-//     { quarter: "Q2 2024", description: "Beta testing phase" },
-//     { quarter: "Q3 2024", description: "Official product launch" },
-//     { quarter: "Q4 2024", description: "Expand to international markets" },
-//   ],
-//   projectPhase: "Development",
-// }
-
-export default function ProjectPage({params}: any) {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="grid gap-6 md:grid-cols-3">
@@ -137,10 +88,11 @@ export default function ProjectPage({params}: any) {
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold mb-2">
-                {project[params.projectInfo-1].fundingGoal.amount.toLocaleString()} {project[1].fundingGoal.currency}
+                {project[params.projectInfo-1].fundingGoal.amount.toLocaleString()} {project[params.projectInfo-1].fundingGoal.currency}
               </div>
-              <Progress value={33} className="mb-2" />
-              <p className="text-sm text-muted-foreground">33% funded</p>
+              <Progress value={fundingPercentage} className="mb-2" />
+              <p className="text-sm text-muted-foreground mb-4">{fundingPercentage}% funded</p>
+              <Button onClick={handleFund} className="w-full">Fund This Project</Button>
             </CardContent>
           </Card>
           <Card>

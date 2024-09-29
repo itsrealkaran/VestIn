@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useProfile } from "@/context/ProfileContext";
+import Image from "next/image";
 
 export default function DeveloperComponent() {
   const { setDeveloperProfile } = useProfile();
@@ -67,7 +68,7 @@ export default function DeveloperComponent() {
         <div className="flex justify-center">
           <div className="relative w-32 h-32 overflow-hidden rounded-full bg-gray-100">
             {image ? (
-              <img src={image} alt="Profile" className="w-full h-full object-cover" />
+              <Image src={image} alt="Profile" className="w-full h-full object-cover" />
             ) : (
               <div className="flex items-center justify-center w-full h-full text-gray-400">
                 <svg
