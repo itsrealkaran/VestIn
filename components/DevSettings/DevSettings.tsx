@@ -1,56 +1,45 @@
-"use client";
+"use client"
 
-import { useState } from "react";
-import { useRouter } from 'next/navigation';
-import { X, Upload } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { useProfile } from "@/context/ProfileContext";
-import Image from "next/image";
+import { useState } from "react"
+import { X, Upload } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import Image from "next/image"
 
-export default function InvestorComponent() {
-  const { setInvestorProfile } = useProfile();
-  const router = useRouter();
-  const [photo, setPhoto] = useState<string | null>(null);
-  const [name, setName] = useState("");
-  const [professions, setProfessions] = useState<string[]>([]);
-  const [currentProfession, setCurrentProfession] = useState("");
-  const [company, setCompany] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+export default function Component() {
+  const [photo, setPhoto] = useState<string | null>(null)
+  const [name, setName] = useState("")
+  const [professions, setProfessions] = useState<string[]>([])
+  const [currentProfession, setCurrentProfession] = useState("")
+  const [company, setCompany] = useState("")
 
   const handlePhotoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
+    const file = e.target.files?.[0]
     if (file) {
-      const reader = new FileReader();
+      const reader = new FileReader()
       reader.onloadend = () => {
-        setPhoto(reader.result as string);
-      };
-      reader.readAsDataURL(file);
+        setPhoto(reader.result as string)
+      }
+      reader.readAsDataURL(file)
     }
-  };
+  }
 
   const handleAddProfession = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && currentProfession.trim() !== "") {
-      setProfessions([...professions, currentProfession.trim()]);
-      setCurrentProfession("");
+      setProfessions([...professions, currentProfession.trim()])
+      setCurrentProfession("")
     }
-  };
+  }
 
   const handleRemoveProfession = (index: number) => {
-    setProfessions(professions.filter((_, i) => i !== index));
-  };
+    setProfessions(professions.filter((_, i) => i !== index))
+  }
 
-  const handleSave = async () => {
-    setIsLoading(true);
-    const investorProfile = { photo, name, professions, company };
-    localStorage.setItem('investorProfile', JSON.stringify(investorProfile));
-    setInvestorProfile(investorProfile);
-    console.log(investorProfile);
-    // Simulate a delay for the loader
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    router.push('/projects');
-  };
+  const handleSave = () => {
+    // Implement save functionality here
+    console.log({ photo, name, professions, company })
+  }
 
   return (
     <div className="min-h-screen bg-white p-8">
@@ -74,7 +63,6 @@ export default function InvestorComponent() {
               accept="image/*"
               onChange={handlePhotoUpload}
               className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-              required
             />
           </div>
         </div>
@@ -87,7 +75,6 @@ export default function InvestorComponent() {
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="Enter your name"
-              required
             />
           </div>
 
@@ -99,7 +86,6 @@ export default function InvestorComponent() {
               onChange={(e) => setCurrentProfession(e.target.value)}
               onKeyDown={handleAddProfession}
               placeholder="Enter a profession and press Enter"
-              required
             />
             <div className="mt-2 flex flex-wrap gap-2">
               {professions.map((profession, index) => (
@@ -126,15 +112,14 @@ export default function InvestorComponent() {
               value={company}
               onChange={(e) => setCompany(e.target.value)}
               placeholder="Enter your company"
-              required
             />
           </div>
 
-          <Button onClick={handleSave} className="w-full" disabled={isLoading}>
-            {isLoading ? "Saving..." : "Save Information"}
+          <Button onClick={handleSave} className="w-full">
+            Save Information
           </Button>
         </div>
       </div>
     </div>
-  );
+  )
 }
