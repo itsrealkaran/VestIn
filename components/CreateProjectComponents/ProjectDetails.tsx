@@ -13,6 +13,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import ProjectNFT from './ProjectNFT.json'; // Adjust the path accordingly
 import Vesting from './Vesting.json'; // Import the ABI of your Vesting contract
 
+import Genpdf from '@/components/CreateProjectComponents/GenPdf'
+
 const CONTRACT_ADDRESS = '0x28785bb65e5f9FE617b5765f1d0f81fa223Cc8Bd'; // Replace with your contract address
 const VESTING_CONTRACT_ADDRESS = '0xYourVestingContractAddress'; // Replace with your Vesting contract address
 
@@ -203,6 +205,13 @@ export default function ProjectForm() {
           Min. {minDescriptionChars} Characters
         </p>
       </div>
+
+      {/* pdf Section */}
+     <Card>
+     <Genpdf/>
+     </Card>
+     
+     
 
       {/* Funding Goal Section */}
       <Card className="max-w-2xl mx-auto p-6 space-y-4">
