@@ -53,13 +53,13 @@ export default function InsideModal() {
     <div className="flex flex-col items-center justify-center min-h-screen bg-background p-4">
       <div className="w-full max-w-md">
         <CardContent className="p-6">
-          <h2 className="text-2xl font-bold text-center mb-6">You are?</h2>
+          {/* <h2 className="text-2xl font-bold text-center mb-6">You are?</h2>
           {connected && (
             <div className="mb-4">
               {chainId && <div>{`Connected chain: ${chainId}`}</div>}
               {account && <div>{`Connected account: ${account}`}</div>}
             </div>
-          )}
+          )} */}
           <div className="grid grid-cols-2 gap-4 mb-6">
             {userTypes.map(({ type, icon: Icon }) => (
               <Button
